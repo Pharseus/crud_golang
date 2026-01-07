@@ -22,11 +22,11 @@ func StartRouting(db *gorm.DB) *chi.Mux {
 		w.Write([]byte("API berhasil di jalankan"))
 	})
 
-	// api buat user
 	r.Route("/v1", func(r chi.Router) {
 		userService := services.NewUserService(db)
 		userController := controllers.NewUserController(userService)
 
+		// api buat user
 		r.Route("/users", func(r chi.Router) {
 			r.Post("/", userController.Create)
 			r.Get("/", userController.GetAll)
@@ -34,6 +34,19 @@ func StartRouting(db *gorm.DB) *chi.Mux {
 			r.Put("/{id}", userController.Update)
 			r.Delete("/{id}", userController.Delete)
 		})
+
+		// product
+		productService := services.NewProductService(db)
+		productController := controllers.NewProductController(productService)
+
+		r.Route("/products", func(r chi.Router) {
+			r.Post("/", productController.Create)       // POST /v1/products
+			r.Get("/", productController.GetAll)        // GET /v1/products
+			r.Get("/{id}", productController.GetById)   // GET /v1/products/{id}
+			r.Put("/{id}", productController.Update)    // PUT /v1/products/{id}
+			r.Delete("/{id}", productController.Delete) // DELETE /v1/products/{id}
+		})
+
 	})
 
 	return r
