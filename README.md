@@ -1,6 +1,6 @@
 # CRUD API SEDERHANA
 
-REST API untuk manajemen User dan Product menggunakan Go, Chi Router, GORM, dan MySQL.
+REST API menggunakan Go, Chi Router, GORM, dan MySQL.
 
 ##  Persyaratan
 
