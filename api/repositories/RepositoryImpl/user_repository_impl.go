@@ -16,6 +16,7 @@ type userRepositoryImpl struct {
 func NewUserRepositoryImpl(db *gorm.DB) repository.UserRepository {
 	return &userRepositoryImpl{DB: db}
 }
+
 func (repository *userRepositoryImpl) CreateUser(ctx context.Context, user entities.User) (entities.User, error) {
 	result := repository.DB.WithContext(ctx).Create(&user)
 	if result.Error != nil {

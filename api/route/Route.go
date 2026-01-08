@@ -8,6 +8,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"gorm.io/gorm"
+
+	_ "github.com/Pharseus/crud_golang.git/docs"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 func StartRouting(db *gorm.DB) *chi.Mux {
@@ -48,6 +51,11 @@ func StartRouting(db *gorm.DB) *chi.Mux {
 		})
 
 	})
+
+	// Swagger UI
+	r.Get("/swagger/*", httpSwagger.Handler(
+		httpSwagger.URL("http://localhost:3000/swagger/doc.json"),
+	))
 
 	return r
 }
